@@ -19,7 +19,7 @@ for file in * .*; do
 	[ -d "$file" ] && continue
 	
 	# Extract extension and base name
-	extension=$(echo "${file##*.}" | tr '[:upper:]' '[:lower:]')
+	extension="${file##*.,,}"
 	base_name="${file%.*}"
 
 	# Handle files without extensions
@@ -33,7 +33,7 @@ for file in * .*; do
 	fi
 
 	# Check if a subdirectory exists with the extension's name
-	if [ ! -d "$extension" ]; then
+	if [ ! -d "$extension,," ]; then
 		mkdir "$extension"
 		echo "Created subdirectory with name '$extension'."
 	else

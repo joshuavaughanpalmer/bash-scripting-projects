@@ -33,7 +33,7 @@ for file in * .*; do
 	fi
 
 	# Check if a subdirectory exists with the extension's name
-	if [ ! -d "$extension" ]; then
+	if [ ! -d "$extension,," ]; then
 		mkdir "$extension"
 		echo "Created subdirectory with name '$extension'."
 	else
