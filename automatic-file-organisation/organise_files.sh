@@ -2,28 +2,34 @@
 
 # A simple Bash script that will organise files into folders by their extensions.
 
-# Use the current directory as the target
-directory="."
+# Take the first argument as the target directory
+directory=${1:-.}
 
-# List all files in the current directory (excluding subdirectories)
-find "$directory" -maxdepth 1 -type f
+# Check if the directory exists
+if [ ! -d "$directory" ]; then
+	echo "Error: Directory '$directory' does not exist."
+	exit 1
+fi
 
 # Loop through all entries in the current directory, process only files (skip directories),
 # extract the file's extension and base name, handle cases where files have no extension
 # or an empty extension, and print the results for each file.
-for file in * .*; do
+for file in "$directory"/* "$directory"/.*; do
 	# Skip special entries . and ..
-	[[ "$file" == "." || "$file" == ".." ]] && continue
+	[[ "$file" == "$directory/." || "$file" == "$directory/.." ]] && continue
 
 	# Skip Directories
 	[ -d "$file" ] && continue
-	
+
+	# Extract the filename from the full path
+	filename=$(basename "$file")
+
 	# Extract extension and base name
-	extension=$(echo "${file##*.}" | tr '[:upper:]' '[:lower:]')
-	base_name="${file%.*}"
+	extension=$(echo "${filename##*.}" | tr '[:upper:]' '[:lower:]')
+	base_name="${filename%.*}"
 
 	# Handle files without extensions
-	if [[ "$file" == "$extension" ]]; then
+	if [[ "$filename" != *.* ]]; then
 		extension="no-extension"
 	fi
 
@@ -33,18 +39,18 @@ for file in * .*; do
 	fi
 
 	# Check if a subdirectory exists with the extension's name
-	if [ ! -d "$extension" ]; then
-		mkdir "$extension"
-		echo "Created subdirectory with name '$extension'."
+	if [ ! -d "$directory/$extension" ]; then
+		mkdir "$directory/$extension"
+		echo "Created subdirectory '$directory/$extension'."
 	else
-		echo "Subdirectory with name '$extension' already exists."
+		echo "Subdirectory with name '$directory/$extension' already exists."
 	fi
 
 	# Move file to the directory that shares a name with the file's extension.
-	mv "$file" "$extension"
+	mv "$file" "$directory/$extension/"
 
 	# Print out full file name, base name and extension
-	echo "File: $file"
+	echo "File Name: $filename"
 	echo "Base Name: $base_name"
 	echo "Extension: $extension"
 done
