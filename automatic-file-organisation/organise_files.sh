@@ -11,7 +11,7 @@ if [ ! -d "$directory" ]; then
 	exit 1
 fi
 
-# Loop through all entries in the current directory, process only files (skip directories),
+# Loop through all entries in the specified directory, process only files (skip directories),
 # extract the file's extension and base name, handle cases where files have no extension
 # or an empty extension, and print the results for each file.
 for file in "$directory"/* "$directory"/.*; do
