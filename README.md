@@ -6,7 +6,7 @@ This repository contains a collection of beginner-to-intermediate Bash scripting
 
 ## Table of Contents
 1. [Hello World Script](hello-world/) - A basic introduction to Bash scripting.
-2. Work in progress
+2. [Automatic File Organiser](automatic-file-organisation/) - An automatic file organiser using Bash.
 
 ---
 
@@ -17,6 +17,6 @@ This repository contains a collection of beginner-to-intermediate Bash scripting
 - **Key Concepts**: `chmod`, file permissions and script execution.
 
 
-### 2. Project Two
-- **Description**: Work in progress
-- **Key Concepts**: TBC
+### 2. Automatic File Organiser
+- **Description**: Organises files in a directory into subfolders based on their extensions.
+- **Key Concepts**: String manipulation, input and error handling, moudlar code and file/directory manipulation.
