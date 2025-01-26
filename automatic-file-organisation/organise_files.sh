@@ -2,6 +2,8 @@
 
 # A simple Bash script that will organise files into folders by their extensions.
 
+echo " "
+
 # Take the first argument as the target directory
 directory=${1:-.}
 
@@ -15,6 +17,8 @@ fi
 # extract the file's extension and base name, handle cases where files have no extension
 # or an empty extension, and print the results for each file.
 for file in "$directory"/* "$directory"/.*; do
+
+	echo " "
 
 	# Skip special entries . and ..
 	if [[ "$file" == "$directory/." || "$file" == "$directory/.." ]]; then
