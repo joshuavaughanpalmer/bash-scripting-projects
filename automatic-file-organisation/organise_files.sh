@@ -15,14 +15,22 @@ fi
 # extract the file's extension and base name, handle cases where files have no extension
 # or an empty extension, and print the results for each file.
 for file in "$directory"/* "$directory"/.*; do
+
 	# Skip special entries . and ..
-	[[ "$file" == "$directory/." || "$file" == "$directory/.." ]] && continue
+	if [[ "$file" == "$directory/." || "$file" == "$directory/.." ]]; then
+		echo "Skipping special entry: $file"
+		continue
+	fi
 
 	# Skip Directories
-	[ -d "$file" ] && continue
+	if [ -d "$file" ]; then
+		echo "Skipping directory: $file"
+		 continue
+	fi
 
 	# Extract the filename from the full path
 	filename=$(basename "$file")
+	echo "Processing file: $filename"
 
 	# Extract extension and base name
 	extension=$(echo "${filename##*.}" | tr '[:upper:]' '[:lower:]')
@@ -46,11 +54,10 @@ for file in "$directory"/* "$directory"/.*; do
 		echo "Subdirectory with name '$directory/$extension' already exists."
 	fi
 
-	# Move file to the directory that shares a name with the file's extension.
-	mv "$file" "$directory/$extension/"
-
-	# Print out full file name, base name and extension
-	echo "File Name: $filename"
-	echo "Base Name: $base_name"
-	echo "Extension: $extension"
+	# Move file and provide confirmation.
+	if mv "$file" "$directory/$extension/"; then
+		echo "Moved '$filename' to '$directory/$extension/'"
+	else
+		echo "Error: Failed to move '$filename' to '$directory/$extension/'"
+	fi
 done
