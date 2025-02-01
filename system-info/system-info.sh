@@ -57,3 +57,13 @@ else
 fi
 
 echo "Disk Usage: ${DISK_USED} used / ${DISK_TOTAL} total"
+
+# No. of active processes running
+if [[ "$OS" == "macOS" ]]; then
+    PROCESS_COUNT=$(ps -e | wc -l)
+else
+    PROCESS_COUNT=$(ps aux --no-heading | wc -l)
+fi
+
+echo "Processes Running: $PROCESS_COUNT"
+
