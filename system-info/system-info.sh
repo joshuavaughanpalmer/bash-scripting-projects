@@ -1,11 +1,8 @@
 #!/bin/bash
 
 # Detect OS
-if [[ "$(uname -s)" == "Darwin" ]]; then
-    OS="macOS"
-elif [[ "$(uname -s)" == "Linux" ]]; then
-    OS="Linux"
-else
+OS=$(uname -s)
+if [[ "$OS" != "Darwin" && "$OS" != "Linux" ]]; then
     echo "Error: This script only supports macOS and Linux."
     exit 1
 fi
