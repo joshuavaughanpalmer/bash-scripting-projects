@@ -67,3 +67,11 @@ fi
 
 echo "Processes Running: $PROCESS_COUNT"
 
+# Display system IP address
+if [[ "$OS" == "macOS" ]]; then
+    IP_ADDRESS=$(ifconfig | grep "inet " | grep -v "127.0.0.1" | awk '{print $2}' | head -n 1)
+else
+    IP_ADDRESS=$(ip -4 addr show | grep "inet " | grep -v "127.0.0.1" | awk '{print $2}' | cut -d'/' -f1 | head -n 1)
+fi
+
+echo "IP Address: $IP_ADDRESS"
