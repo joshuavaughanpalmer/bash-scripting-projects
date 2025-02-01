@@ -7,6 +7,10 @@ if [[ "$OS" != "Darwin" && "$OS" != "Linux" ]]; then
     exit 1
 fi
 
+# Log file setup
+LOG_FILE="system-info.log"
+exec > "$LOG_FILE" 2>&1 # Redirect output to the log file
+
 # System Info Report
 echo "============================"
 echo "🔷 System Information Report"
