@@ -11,6 +11,7 @@ else
 fi
 
 # System Info Report
+echo "============================"
 echo "🔷 System Information Report"
 echo "============================"
 echo "Hostname: $(hostname)"
